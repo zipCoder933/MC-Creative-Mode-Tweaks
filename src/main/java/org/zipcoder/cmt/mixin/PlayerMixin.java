@@ -1,6 +1,7 @@
 package org.zipcoder.cmt.mixin;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Pose;
@@ -62,6 +63,14 @@ public abstract class PlayerMixin extends LivingEntity implements Player_I {
         this.noClipEnabled = noClip;
     }
 
+    @Inject(
+            method = "updatePlayerPose",
+            at = @At(value = "TAIL")
+    )
+    private void modifyPose(CallbackInfo ci) {
+        if(isNoClip()) this.setPose(Pose.STANDING);
+    }
+
     /**
      * Inject right after noPhysics is set, but before any further logic.
      */
@@ -83,10 +92,7 @@ public abstract class PlayerMixin extends LivingEntity implements Player_I {
         }
     }
 
-//    @Inject(method = "canEnterPose", at = @At("TAIL"))
-//    protected boolean canEnterPose_After(Pose pPose) {
-////        return this.level().noCollision(this, this.getBoundingBoxForPose(pPose).deflate(1.0E-7D));
-//    }
+
 
 //    @Inject(method = "tick", at = @At("HEAD"))
 //    private void onTick_Head(CallbackInfo ci) {
