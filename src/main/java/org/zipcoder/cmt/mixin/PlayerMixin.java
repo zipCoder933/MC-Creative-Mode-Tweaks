@@ -7,6 +7,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.player.Abilities;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.common.ForgeMod;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -53,9 +54,11 @@ public abstract class PlayerMixin extends LivingEntity implements Player_I {
     @Shadow
     public abstract Abilities getAbilities();
 
+    @Shadow public abstract boolean isCreative();
+
     @Override
     public boolean isNoClip() {
-        return noClipEnabled;
+        return noClipEnabled && isCreative();
     }
 
     @Override
