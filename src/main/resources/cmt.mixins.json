@@ -5,7 +5,8 @@
   "compatibilityLevel": "JAVA_8",
   "refmap": "cmt.refmap.json",
   "mixins": [
-    "PlayerMixin"
+    "PlayerMixin",
+    "HookClientPlayerTick"
   ],
   "client": [
   ],
