@@ -14,6 +14,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.slf4j.Logger;
+import org.zipcoder.cmt.network.MyModNetwork;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(CreativeModeTweaks.MOD_ID)
@@ -41,8 +42,13 @@ public class CreativeModeTweaks {
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
 
+    /**
+     * Common setup is run on the client and server
+     * @param event
+     */
     private void commonSetup(final FMLCommonSetupEvent event) {
-
+        // Register common setup
+        MyModNetwork.registerPackets();  // Register network packets here
     }
 
     // Add the example block item to the building blocks tab
@@ -56,12 +62,5 @@ public class CreativeModeTweaks {
 
     }
 
-    // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent
-    @Mod.EventBusSubscriber(modid = MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
-    public static class ClientModEvents {
-        @SubscribeEvent
-        public static void onClientSetup(FMLClientSetupEvent event) {
 
-        }
-    }
 }
