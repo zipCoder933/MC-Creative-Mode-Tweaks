@@ -1,4 +1,5 @@
 package org.zipcoder.cmt.mixin;
+
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Pose;
@@ -24,7 +25,7 @@ public abstract class PlayerMixin extends LivingEntity implements Player_I {
      */
     //Unique is used to prevent from conflicting with other mixin varaibles
     @Unique
-    private boolean noClipEnabled = false;
+    private boolean noClipEnabled = true;
 
 //    @Inject(method = "<init>", at = @At("RETURN"))
 //    private void onPlayerInit(CallbackInfo ci) {
@@ -47,7 +48,8 @@ public abstract class PlayerMixin extends LivingEntity implements Player_I {
     @Shadow
     public abstract Abilities getAbilities();
 
-    @Shadow public abstract boolean isCreative();
+    @Shadow
+    public abstract boolean isCreative();
 
     @Override
     public boolean isNoClip() {
@@ -64,7 +66,7 @@ public abstract class PlayerMixin extends LivingEntity implements Player_I {
             at = @At(value = "TAIL")
     )
     private void modifyPose(CallbackInfo ci) {
-        if(isNoClip()) this.setPose(Pose.STANDING);
+        if (this.getAbilities().flying && isNoClip()) this.setPose(Pose.STANDING);
     }
 
     /**
@@ -87,7 +89,6 @@ public abstract class PlayerMixin extends LivingEntity implements Player_I {
             this.setOnGround(false);
         }
     }
-
 
 
 //    @Inject(method = "tick", at = @At("HEAD"))

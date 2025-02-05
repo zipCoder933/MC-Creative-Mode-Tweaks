@@ -1,7 +1,6 @@
 package org.zipcoder.cmt.client;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -16,6 +15,7 @@ import static org.zipcoder.cmt.client.ClientModEvents.KEY_TOGGLE_NOCLIP;
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
 public class KeyInputHandlerClient {
 
+    private static boolean noClipEnabled = false;
 
     @SubscribeEvent
     public static void onKeyInput(InputEvent.Key event) {
@@ -24,14 +24,13 @@ public class KeyInputHandlerClient {
              * If we are in creative mode, change noclip
              */
             if (Minecraft.getInstance().player.isCreative()) {
-
-                Player_I player_i = (Player_I) Minecraft.getInstance().player;
-
-                boolean noClipEnabled = !player_i.isNoClip();
+                noClipEnabled = !noClipEnabled;
                 ClientUtils.displayMessge("No-Clip " + (noClipEnabled ? "Enabled" : "Disabled"));
+
                 //Send the packet to the server
                 PacketHandler.CHANNEL.sendToServer(new ToggleNoClipMessage(noClipEnabled));
                 //Set the value on the client as well
+                Player_I player_i = (Player_I) Minecraft.getInstance().player;
                 player_i.setNoClip(noClipEnabled);
             }
         }

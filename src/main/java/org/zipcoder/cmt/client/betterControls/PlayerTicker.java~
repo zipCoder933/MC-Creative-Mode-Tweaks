@@ -39,18 +39,17 @@ public final class PlayerTicker {
     public static final double INERTIA_DAMPING = 0.1f;
 
     public void afterSuperCall(LocalPlayer player) {
-        if (player.getAbilities().flying
-                && (player.isSpectator() || player.isCreative())
-                && Config.disableFlightInertia) {
-
+        if (player.getAbilities().flying && (player.isSpectator() || player.isCreative())) {
             player.getAbilities().setFlyingSpeed(Config.flightSpeed);
 
-            final Input input = player.input;
-            if (input.forwardImpulse == 0F && input.leftImpulse == 0F) {
-                player.setDeltaMovement(player.getDeltaMovement().multiply(INERTIA_DAMPING, 1.0, INERTIA_DAMPING));
-            }
-            if (!input.jumping && !input.shiftKeyDown) {
-                player.setDeltaMovement(player.getDeltaMovement().multiply(1.0, INERTIA_DAMPING, 1.0));
+            if (Config.disableFlightInertia) {
+                final Input input = player.input;
+                if (input.forwardImpulse == 0F && input.leftImpulse == 0F) {
+                    player.setDeltaMovement(player.getDeltaMovement().multiply(INERTIA_DAMPING, 1.0, INERTIA_DAMPING));
+                }
+                if (!input.jumping && !input.shiftKeyDown) {
+                    player.setDeltaMovement(player.getDeltaMovement().multiply(1.0, INERTIA_DAMPING, 1.0));
+                }
             }
         }
     }

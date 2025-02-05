@@ -15,33 +15,29 @@ import org.zipcoder.cmt.utils.MathUtils;
 @OnlyIn(Dist.CLIENT)
 public class AdjustRangeKey extends KeyBase implements IGuiOverlay {
 
-	public AdjustRangeKey(String name, int keyCode, String category) {
-		super(name, keyCode, category);
-	}
+    public AdjustRangeKey(String name, int keyCode, String category) {
+        super(name, keyCode, category);
+    }
 
-	@Override
-	public void render(ForgeGui gui, GuiGraphics guiGraphics, float partialTicks, int screenWidth, int screenHeight) {
-		if (this.pressTime == 0) {
-			return;
-		}
-		if (!Minecraft.getInstance().player.isCreative()) {
-			return;
-		}
-		// Update dist
-		Minecraft mc = Minecraft.getInstance();
-		HitResult rayTraceResult = mc.getCameraEntity().pick(255.0, mc.getFrameTime(), false);
-		double dist;
-		if (rayTraceResult == null || rayTraceResult.getType() == HitResult.Type.MISS) {
-			dist = Config.REACH_MAX_RANGE.get();
-		} else {
-			dist = mc.player.getEyePosition(partialTicks).distanceTo(rayTraceResult.getLocation());
-			dist = MathUtils.clamp(dist, Config.REACH_MIN_RANGE.get(), Config.REACH_MAX_RANGE.get());
-		}
-		PacketHandler.sendReachRangeMessage(dist);
-		// Render
-		int distInt = (int)dist;
-		String distStr = String.valueOf(distInt);
-		TextRenderer.showMessage(guiGraphics, Minecraft.getInstance().getWindow(), distStr);
-	}
+    @Override
+    public void render(ForgeGui gui, GuiGraphics guiGraphics, float partialTicks, int screenWidth, int screenHeight) {
+        if (this.pressTime == 0 ||
+                !Minecraft.getInstance().player.isCreative()) return;
+        // Update dist
+        Minecraft mc = Minecraft.getInstance();
+        HitResult rayTraceResult = mc.getCameraEntity().pick(255.0, mc.getFrameTime(), false);
+        double dist;
+        if (rayTraceResult == null || rayTraceResult.getType() == HitResult.Type.MISS) {
+            dist = Config.REACH_MAX_RANGE.get();
+        } else {
+            dist = mc.player.getEyePosition(partialTicks).distanceTo(rayTraceResult.getLocation());
+            dist = MathUtils.clamp(dist, Config.REACH_MIN_RANGE.get(), Config.REACH_MAX_RANGE.get());
+        }
+        PacketHandler.sendReachRangeMessage(dist);
+        // Render
+        int distInt = (int) dist;
+        String distStr = String.valueOf(distInt);
+        TextRenderer.showMessage(guiGraphics, Minecraft.getInstance().getWindow(), distStr);
+    }
 
 }

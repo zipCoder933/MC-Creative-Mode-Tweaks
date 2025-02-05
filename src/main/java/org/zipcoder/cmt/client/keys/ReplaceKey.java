@@ -21,75 +21,71 @@ import org.zipcoder.cmt.network.PacketHandler;
 @OnlyIn(Dist.CLIENT)
 public class ReplaceKey extends KeyBase {
 
-	private BlockState lockedBlockState = null;
+    private BlockState lockedBlockState = null;
 
-	public ReplaceKey(String name, int keyCode, String category) {
-		super(name, keyCode, category);
-	}
+    public ReplaceKey(String name, int keyCode, String category) {
+        super(name, keyCode, category);
+    }
 
-	@Override
-	protected void onKeyPressStart() {
-		Minecraft mc = Minecraft.getInstance();
-		if (mc.player.isShiftKeyDown() ^ Config.INVERT_REPLACE_LOCK.get()) {
-			HitResult target = mc.hitResult;
-			if (target != null && target.getType() == HitResult.Type.BLOCK){
-				lockedBlockState = mc.level.getBlockState(((BlockHitResult)target).getBlockPos());
-			} else {
-				lockedBlockState = Blocks.AIR.defaultBlockState();
-			}
-		} else {
-			lockedBlockState = null;
-		}
-	}
-
-	@Override
-	protected void onKeyReleased() {
-		lockedBlockState = null;
-	}
-
-
-	@SubscribeEvent
-	public void onRenderTick(final RenderTickEvent event) {
-		if (event.getPhase() != EventPriority.NORMAL) {
-			return;
-		}
-		if (this.pressTime == 0) {
-			return;
-		}
-
-		if (this.pressTime==1 || this.pressTime > Config.REPLACE_INTERVAL.get()) {
-			this.execReplace();
-			if (this.pressTime==1) {
-				this.pressTime++;
-			}
-		}
-	}
-
-	private void execReplace() {
-		Minecraft mc = Minecraft.getInstance();
-		if (!mc.player.isCreative()) {
-			return;
-		}
-		HitResult target = mc.hitResult;
-		if (target == null || target.getType() != HitResult.Type.BLOCK){
-        	return;
+    @Override
+    protected void onKeyPressStart() {
+        Minecraft mc = Minecraft.getInstance();
+        if (mc.player.isShiftKeyDown() ^ Config.INVERT_REPLACE_LOCK.get()) {
+            HitResult target = mc.hitResult;
+            if (target != null && target.getType() == HitResult.Type.BLOCK) {
+                lockedBlockState = mc.level.getBlockState(((BlockHitResult) target).getBlockPos());
+            } else {
+                lockedBlockState = Blocks.AIR.defaultBlockState();
+            }
+        } else {
+            lockedBlockState = null;
         }
-		BlockPos pos = ((BlockHitResult)target).getBlockPos();
+    }
+
+    @Override
+    protected void onKeyReleased() {
+        lockedBlockState = null;
+    }
+
+
+    @SubscribeEvent
+    public void onRenderTick(final RenderTickEvent event) {
+        if (this.pressTime == 0 ||
+                event.getPhase() != EventPriority.NORMAL ||
+                !Minecraft.getInstance().player.isCreative()) return;
+
+        if (this.pressTime == 1 || this.pressTime > Config.REPLACE_INTERVAL.get()) {
+            this.execReplace();
+            if (this.pressTime == 1) {
+                this.pressTime++;
+            }
+        }
+    }
+
+    private void execReplace() {
+        Minecraft mc = Minecraft.getInstance();
+        if (!mc.player.isCreative()) {
+            return;
+        }
+        HitResult target = mc.hitResult;
+        if (target == null || target.getType() != HitResult.Type.BLOCK) {
+            return;
+        }
+        BlockPos pos = ((BlockHitResult) target).getBlockPos();
         BlockState state = mc.level.getBlockState(pos);
-        if (state.isAir())
-        {
+        if (state.isAir()) {
             return;
         }
         if (lockedBlockState != null && lockedBlockState != state) {
             return;
         }
-		ItemStack itemStack = mc.player.getInventory().getSelected();
-		Block block = Block.byItem(itemStack.getItem());
-		if (itemStack.isEmpty() || block == Blocks.AIR) {
-			return;
-		}
-		BlockState newBlockState = block.getStateForPlacement(new BlockPlaceContext(mc.player, InteractionHand.MAIN_HAND, itemStack, (BlockHitResult)target));
-		PacketHandler.sendReplaceMessage(pos, newBlockState, state);
-	}
+        ItemStack itemStack = mc.player.getInventory().getSelected();
+        Block block = Block.byItem(itemStack.getItem());
+        if (itemStack.isEmpty() || block == Blocks.AIR) {
+            return;
+        }
+        BlockState newBlockState = block.getStateForPlacement(new BlockPlaceContext(mc.player, InteractionHand.MAIN_HAND, itemStack, (BlockHitResult) target));
+        PacketHandler.sendReplaceMessage(pos, newBlockState, state);
+    }
 
 }
