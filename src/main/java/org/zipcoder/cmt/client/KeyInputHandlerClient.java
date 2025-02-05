@@ -6,8 +6,8 @@ import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import org.zipcoder.cmt.client.utils.ClientUtils;
-import org.zipcoder.cmt.network.packets.PacketHandler;
-import org.zipcoder.cmt.network.ToggleNoClipPacket;
+import org.zipcoder.cmt.network.PacketHandler;
+import org.zipcoder.cmt.network.packets.ToggleNoClipMessage;
 import org.zipcoder.cmt.utils.mixin.Player_I;
 
 import static org.zipcoder.cmt.client.ClientModEvents.KEY_TOGGLE_NOCLIP;
@@ -24,7 +24,7 @@ public class KeyInputHandlerClient {
             ClientUtils.displayMessge("No-Clip " + (noClipEnabled ? "Enabled" : "Disabled"));
 
             //Send the packet to the server
-            PacketHandler.CHANNEL.sendToServer(new ToggleNoClipPacket(noClipEnabled));
+            PacketHandler.CHANNEL.sendToServer(new ToggleNoClipMessage(noClipEnabled));
             //Set the value on the client as well
             Player_I player_i = (Player_I) Minecraft.getInstance().player;
             player_i.setNoClip(noClipEnabled);

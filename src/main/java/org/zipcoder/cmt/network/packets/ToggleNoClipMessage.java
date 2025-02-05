@@ -1,4 +1,4 @@
-package org.zipcoder.cmt.network;
+package org.zipcoder.cmt.network.packets;
 
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
@@ -7,11 +7,11 @@ import org.zipcoder.cmt.utils.mixin.Player_I;
 
 import java.util.function.Supplier;
 
-public class ToggleNoClipPacket {
+public class ToggleNoClipMessage {
 
     boolean enabled;
 
-    public ToggleNoClipPacket(boolean enabled) {
+    public ToggleNoClipMessage(boolean enabled) {
         this.enabled = enabled;
     }
 
@@ -21,7 +21,7 @@ public class ToggleNoClipPacket {
      * @param packet
      * @param buf
      */
-    public static void encode(ToggleNoClipPacket packet, FriendlyByteBuf buf) {
+    public static void encode(ToggleNoClipMessage packet, FriendlyByteBuf buf) {
         buf.writeBoolean(packet.enabled);
     }
 
@@ -31,12 +31,12 @@ public class ToggleNoClipPacket {
      * @param buf
      * @return
      */
-    public static ToggleNoClipPacket decode(FriendlyByteBuf buf) {
+    public static ToggleNoClipMessage decode(FriendlyByteBuf buf) {
         boolean enabled = buf.readBoolean();
-        return new ToggleNoClipPacket(enabled);
+        return new ToggleNoClipMessage(enabled);
     }
 
-    public static void handle(ToggleNoClipPacket packet, Supplier<NetworkEvent.Context> ctxSupplier) {
+    public static void handle(ToggleNoClipMessage packet, Supplier<NetworkEvent.Context> ctxSupplier) {
         NetworkEvent.Context ctx = ctxSupplier.get();
         ctx.enqueueWork(() -> {
             // This code runs on the server thread.

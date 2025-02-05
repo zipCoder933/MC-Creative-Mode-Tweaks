@@ -16,7 +16,7 @@ import net.minecraftforge.event.TickEvent.RenderTickEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import org.zipcoder.cmt.Config;
-import org.zipcoder.cmt.network.packets.PacketHandler;
+import org.zipcoder.cmt.network.PacketHandler;
 
 @OnlyIn(Dist.CLIENT)
 public class ReplaceKey extends KeyBase {

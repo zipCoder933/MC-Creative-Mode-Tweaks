@@ -1,11 +1,13 @@
-package org.zipcoder.cmt.network.packets;
+package org.zipcoder.cmt.network;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
-import org.zipcoder.cmt.network.ToggleNoClipPacket;
+import org.zipcoder.cmt.network.packets.AdjustRangeMessage;
+import org.zipcoder.cmt.network.packets.ReplaceMessage;
+import org.zipcoder.cmt.network.packets.ToggleNoClipMessage;
 
 import static org.zipcoder.cmt.CreativeModeTweaks.MODID;
 
@@ -26,10 +28,10 @@ public class PacketHandler {
 
     public static void registerPackets() {
         CHANNEL.registerMessage(packetId++,
-                ToggleNoClipPacket.class,
-                ToggleNoClipPacket::encode,
-                ToggleNoClipPacket::decode,
-                ToggleNoClipPacket::handle);
+                ToggleNoClipMessage.class,
+                ToggleNoClipMessage::encode,
+                ToggleNoClipMessage::decode,
+                ToggleNoClipMessage::handle);
         CHANNEL.messageBuilder(ReplaceMessage.class, packetId++)
                 .encoder(ReplaceMessage::toBytes)
                 .decoder(ReplaceMessage::new)

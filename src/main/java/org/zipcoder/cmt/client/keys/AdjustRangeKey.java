@@ -9,7 +9,7 @@ import net.minecraftforge.client.gui.overlay.ForgeGui;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 import org.zipcoder.cmt.Config;
 import org.zipcoder.cmt.client.rendering.TextRenderer;
-import org.zipcoder.cmt.network.packets.PacketHandler;
+import org.zipcoder.cmt.network.PacketHandler;
 import org.zipcoder.cmt.utils.MathUtils;
 
 @OnlyIn(Dist.CLIENT)
