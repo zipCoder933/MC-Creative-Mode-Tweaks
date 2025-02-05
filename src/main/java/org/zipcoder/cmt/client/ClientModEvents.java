@@ -31,10 +31,18 @@ public class ClientModEvents {
             GLFW.GLFW_KEY_UNKNOWN,
             DEFAULT_CATEGORY
     );
-    public static final KeyMapping KEY_REPLACE = new ReplaceKey(GLFW.GLFW_KEY_UNKNOWN, DEFAULT_CATEGORY);
-    public static final KeyMapping KEY_ADJUSTRANGE = new AdjustRangeKey(GLFW.GLFW_KEY_UNKNOWN, DEFAULT_CATEGORY);
 
+    public static final KeyMapping KEY_REPLACE = new ReplaceKey("key." + MODID + ".replace",
+            GLFW.GLFW_KEY_UNKNOWN, DEFAULT_CATEGORY);
 
+    public static final KeyMapping KEY_ADJUSTRANGE = new AdjustRangeKey("key." + MODID + ".adjustrange",
+            GLFW.GLFW_KEY_UNKNOWN, DEFAULT_CATEGORY);
+
+    /**
+     * Setup the client side.
+     *
+     * @param event
+     */
     @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event) {
         MinecraftForge.EVENT_BUS.register(KEY_REPLACE);

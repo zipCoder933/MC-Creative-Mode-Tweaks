@@ -1,4 +1,4 @@
-package org.zipcoder.cmt.betterControls;
+package org.zipcoder.cmt.utils.betterControls;
 
 
 import net.minecraft.client.KeyMapping;

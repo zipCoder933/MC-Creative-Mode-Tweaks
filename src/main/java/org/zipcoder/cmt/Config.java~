@@ -15,30 +15,31 @@ public class Config {
             = COMMON_BUILDER.comment("Whether to disable flight inertia")
             .define("disableFlightInertia", true);
 
-    private static final ForgeConfigSpec.IntValue MIN_REACH_DISTANCE
+    //Block reach
+    public static final ForgeConfigSpec.IntValue REACH_MIN_RANGE
             = COMMON_BUILDER.comment("Minimum reach distance")
             .defineInRange("minReach", 5, 5, 128);
 
-    private static final ForgeConfigSpec.IntValue MAX_REACH_DISTANCE
-            = COMMON_BUILDER.comment("Maximum reach distance")
-            .defineInRange("maxReach", 5, 5, 256);
+    public static ForgeConfigSpec.IntValue REACH_MAX_RANGE =
+            COMMON_BUILDER.comment("Minimum reach distance")
+                    .defineInRange("common.REACH_MAX_RANGE", 128, 5, 256);
 
     private static final ForgeConfigSpec.IntValue DEFAULT_REACH_DISTANCE
             = COMMON_BUILDER.comment("Default reach distance when we enter creative mode")
             .defineInRange("defaultReach", 64, 5, 256);
 
 
+    public static ForgeConfigSpec.IntValue REPLACE_INTERVAL =
+            COMMON_BUILDER.defineInRange("client.REPLACE_INTERVAL", 1, 1, 256);
 
-    public static ForgeConfigSpec.IntValue MAX_RANGE = COMMON_BUILDER.defineInRange("common.MAX_RANGE", 128, 0, 256);
-    public static ForgeConfigSpec.IntValue REPLACE_INTERVAL = COMMON_BUILDER.defineInRange("client.REPLACE_INTERVAL", 1, 1, 256);
-    public static ForgeConfigSpec.BooleanValue INVERT_REPLACE_LOCK = COMMON_BUILDER.comment("Default: false").define("client.INVERT_REPLACE_LOCK", false);
+    public static ForgeConfigSpec.BooleanValue INVERT_REPLACE_LOCK =
+            COMMON_BUILDER.comment("Default: false").define("client.INVERT_REPLACE_LOCK", false);
 
 
     static final ForgeConfigSpec SPEC = COMMON_BUILDER.build();
 
     //These are the values the mod will read from
     public static boolean disableFlightInertia = false;
-    public static int minReachDistance = 5;
     public static int maxReachDistance = 128;
     public static int defaultReachDistance = 64;
 
@@ -47,7 +48,6 @@ public class Config {
     static void onLoad(final ModConfigEvent event) {
         //Its better to set the config values to other variables in here just so that we don't get null pointer exceptions
         disableFlightInertia = Config.DISABLE_FLIGHT_INERTIA.get();
-        minReachDistance = Config.MIN_REACH_DISTANCE.get();
         maxReachDistance = Config.MAX_REACH_DISTANCE.get();
         defaultReachDistance = Config.DEFAULT_REACH_DISTANCE.get();
     }

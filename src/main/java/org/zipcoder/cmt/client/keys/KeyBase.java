@@ -16,6 +16,7 @@ public class KeyBase extends KeyMapping {
 	private static final int DOUBLE_TAP_MAX = 5;
 	
 	public KeyBase(String description, int keyCode, String category) {
+
 		super(description, keyCode, category);
 	}
 

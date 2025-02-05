@@ -23,8 +23,8 @@ public class ReplaceKey extends KeyBase {
 
 	private BlockState lockedBlockState = null;
 
-	public ReplaceKey(int keyCode, String category) {
-		super("ctm-replace", keyCode, category);
+	public ReplaceKey(String name, int keyCode, String category) {
+		super(name, keyCode, category);
 	}
 
 	@Override

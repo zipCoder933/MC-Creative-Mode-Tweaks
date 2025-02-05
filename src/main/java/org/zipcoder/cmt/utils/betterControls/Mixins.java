@@ -1,4 +1,4 @@
-package org.zipcoder.cmt.betterControls;
+package org.zipcoder.cmt.utils.betterControls;
 
 @SuppressWarnings("CastToIncompatibleInterface")
 public final class Mixins {

@@ -1,4 +1,4 @@
-package org.zipcoder.cmt.reachModifier;
+package org.zipcoder.cmt.utils.reach;
 
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;

@@ -5,6 +5,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 
 public class TextRenderer {
+
 	public static void showMessage(GuiGraphics guiGraphics, Window scaledResolution, String msg) {
 		showMessage(guiGraphics, scaledResolution, msg, 0xFFFFFF);
 	}

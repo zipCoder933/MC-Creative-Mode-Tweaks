@@ -43,7 +43,7 @@ public class ReplaceMessage {
             return;
         }
         double dist = player.getEyePosition(1.0F).distanceTo(new Vec3(pos.getX(), pos.getY(), pos.getZ()));
-        if (dist > Config.MAX_RANGE.get()) {
+        if (dist > Config.REACH_MAX_RANGE.get()) {
             return;
         }
         if (player.level().getBlockState(pos) != checkState) {

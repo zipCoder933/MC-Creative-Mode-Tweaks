@@ -10,12 +10,13 @@ import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 import org.zipcoder.cmt.Config;
 import org.zipcoder.cmt.client.rendering.TextRenderer;
 import org.zipcoder.cmt.network.packets.PacketHandler;
+import org.zipcoder.cmt.utils.MathUtils;
 
 @OnlyIn(Dist.CLIENT)
 public class AdjustRangeKey extends KeyBase implements IGuiOverlay {
 
-	public AdjustRangeKey(int keyCode, String category) {
-		super("ctm-adjustrange", keyCode, category);
+	public AdjustRangeKey(String name, int keyCode, String category) {
+		super(name, keyCode, category);
 	}
 
 	@Override
@@ -31,9 +32,10 @@ public class AdjustRangeKey extends KeyBase implements IGuiOverlay {
 		HitResult rayTraceResult = mc.getCameraEntity().pick(255.0, mc.getFrameTime(), false);
 		double dist;
 		if (rayTraceResult == null || rayTraceResult.getType() == HitResult.Type.MISS) {
-			dist = Config.MAX_RANGE.get();
+			dist = Config.REACH_MAX_RANGE.get();
 		} else {
-			dist = Math.min(Config.MAX_RANGE.get(), mc.player.getEyePosition(partialTicks).distanceTo(rayTraceResult.getLocation()));
+			dist = mc.player.getEyePosition(partialTicks).distanceTo(rayTraceResult.getLocation());
+			dist = MathUtils.clamp(dist, Config.REACH_MIN_RANGE.get(), Config.REACH_MAX_RANGE.get());
 		}
 		PacketHandler.sendReachRangeMessage(dist);
 		// Render
