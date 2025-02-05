@@ -21,7 +21,7 @@ public class CreativeModeTweaks {
 
     // Define mod id in a common place for everything to reference
     public static final String MODID = "cmt";
-    public static final String NAME = "CMT";
+    public static final String NAME = "LotTweaks";
 
     // Directly reference a slf4j logger
     //The logger is a central point for logging

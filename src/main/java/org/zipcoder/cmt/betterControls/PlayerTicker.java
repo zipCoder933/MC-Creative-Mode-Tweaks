@@ -36,7 +36,7 @@ public final class PlayerTicker {
         this.ref = new WeakReference<>(player);
     }
 
-    public static final double INERTIA_DAMPING = 0.05f;
+    public static final double INERTIA_DAMPING = 0.1f;
 
     public void afterSuperCall(LocalPlayer player) {
         if (player.getAbilities().flying
@@ -48,7 +48,7 @@ public final class PlayerTicker {
                 player.setDeltaMovement(player.getDeltaMovement().multiply(INERTIA_DAMPING, 1.0, INERTIA_DAMPING));
             }
             if (!input.jumping && !input.shiftKeyDown) {
-                player.setDeltaMovement(player.getDeltaMovement().multiply(1.0, 0.0, 1.0));
+                player.setDeltaMovement(player.getDeltaMovement().multiply(1.0, INERTIA_DAMPING, 1.0));
             }
         }
     }

@@ -9,6 +9,7 @@ import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
 import net.minecraftforge.common.MinecraftForge;
 import org.lwjgl.glfw.GLFW;
+import org.zipcoder.cmt.CreativeModeTweaks;
 import org.zipcoder.cmt.reachModifier.LotTweaks;
 import org.zipcoder.cmt.reachModifier.client.keys.AdjustRangeKey;
 import org.zipcoder.cmt.reachModifier.client.keys.ReplaceKey;
@@ -17,8 +18,8 @@ import org.zipcoder.cmt.reachModifier.client.keys.ReplaceKey;
 public class LotTweaksClient
 {
 	private static KeyMapping[] keyMappings = {
-			new ReplaceKey(GLFW.GLFW_KEY_V, LotTweaks.NAME),
-			new AdjustRangeKey(GLFW.GLFW_KEY_R, LotTweaks.NAME)
+			new ReplaceKey(GLFW.GLFW_KEY_V, CreativeModeTweaks.NAME),
+			new AdjustRangeKey(GLFW.GLFW_KEY_R, CreativeModeTweaks.NAME)
 	};
 
 	public LotTweaksClient() {

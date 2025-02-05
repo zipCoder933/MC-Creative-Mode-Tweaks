@@ -11,7 +11,7 @@ import org.zipcoder.cmt.reachModifier.client.LotTweaksClient;
 import org.zipcoder.cmt.reachModifier.network.LTPacketHandler;
 
 public class LotTweaks {
-
+    public static final String NAME = "LotTweaks";
 
     public LotTweaks(IEventBus modEventBus) {
         modEventBus.addListener(this::clientInit);

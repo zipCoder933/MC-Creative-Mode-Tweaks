@@ -1,6 +1,4 @@
 package org.zipcoder.cmt.mixin;
-
-import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Pose;
@@ -28,18 +26,16 @@ public abstract class PlayerMixin extends LivingEntity implements Player_I {
     @Unique
     private boolean noClipEnabled = false;
 
-
-
-    @Inject(method = "<init>", at = @At("RETURN"))
-    private void onPlayerInit(CallbackInfo ci) {
-        if (Minecraft.getInstance().level != null) {
-            // Running on the client
-            System.out.println("Initializing client-side player with noClipEnabled = " + this.noClipEnabled);
-        } else {
-            // Running on the server
-            System.out.println("Initializing server-side player with noClipEnabled = " + this.noClipEnabled);
-        }
-    }
+//    @Inject(method = "<init>", at = @At("RETURN"))
+//    private void onPlayerInit(CallbackInfo ci) {
+//        if (Minecraft.getInstance().level != null) {
+//            // Running on the client
+//            System.out.println("Initializing client-side player with noClipEnabled = " + this.noClipEnabled);
+//        } else {
+//            // Running on the server
+//            System.out.println("Initializing server-side player with noClipEnabled = " + this.noClipEnabled);
+//        }
+//    }
 
     protected PlayerMixin(EntityType<? extends LivingEntity> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
