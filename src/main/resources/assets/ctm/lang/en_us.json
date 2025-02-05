@@ -1,6 +1,6 @@
 {
-  "key.ctm.default": "Creative Mode",
-  "key.ctm.toggle_noclip": "Toggle No-Clip",
-  "key.ctm.adjustrange": "Adjust Range",
-  "key.ctm.replace": "Replace Tool"
+  "key.cmt.default": "Creative Mode",
+  "key.cmt.toggle_noclip": "Toggle No-Clip",
+  "key.cmt.adjustrange": "Adjust Range",
+  "key.cmt.replace": "Replace Tool"
 }
