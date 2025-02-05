@@ -7,9 +7,9 @@ import net.minecraft.client.Options;
 import net.minecraft.client.ToggleKeyMapping;
 import net.minecraft.client.player.Input;
 import net.minecraft.client.player.LocalPlayer;
+import org.zipcoder.cmt.Config;
 
 import java.lang.ref.WeakReference;
-import java.util.function.BooleanSupplier;
 
 public final class PlayerTicker {
     private static final Minecraft MINECRAFT = Minecraft.getInstance();
@@ -36,16 +36,16 @@ public final class PlayerTicker {
         this.ref = new WeakReference<>(player);
     }
 
-    public static final boolean DISABLE_FLIGHT_INERTIA = true;
+    public static final double INERTIA_DAMPING = 0.05f;
 
     public void afterSuperCall(LocalPlayer player) {
         if (player.getAbilities().flying
                 && (player.isSpectator() || player.isCreative())
-                && DISABLE_FLIGHT_INERTIA) {
+                && Config.disableFlightInertia) {
 
             final Input input = player.input;
             if (input.forwardImpulse == 0F && input.leftImpulse == 0F) {
-                player.setDeltaMovement(player.getDeltaMovement().multiply(0.0, 1.0, 0.0));
+                player.setDeltaMovement(player.getDeltaMovement().multiply(INERTIA_DAMPING, 1.0, INERTIA_DAMPING));
             }
             if (!input.jumping && !input.shiftKeyDown) {
                 player.setDeltaMovement(player.getDeltaMovement().multiply(1.0, 0.0, 1.0));
