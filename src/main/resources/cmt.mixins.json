@@ -5,10 +5,10 @@
   "compatibilityLevel": "JAVA_8",
   "refmap": "cmt.refmap.json",
   "mixins": [
-    "PlayerMixin",
-    "HookClientPlayerTick"
+    "PlayerMixin"
   ],
   "client": [
+    "HookClientPlayerTick"
   ],
   "injectors": {
     "defaultRequire": 1
