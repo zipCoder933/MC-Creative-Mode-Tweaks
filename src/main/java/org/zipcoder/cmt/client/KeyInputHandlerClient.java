@@ -20,14 +20,19 @@ public class KeyInputHandlerClient {
     @SubscribeEvent
     public static void onKeyInput(InputEvent.Key event) {
         if (KEY_TOGGLE_NOCLIP.isDown()) {
-            noClipEnabled = !noClipEnabled;
-            ClientUtils.displayMessge("No-Clip " + (noClipEnabled ? "Enabled" : "Disabled"));
+            /**
+             * If we are in creative mode, change noclip
+             */
+            if (Minecraft.getInstance().player.isCreative()) {
+                noClipEnabled = !noClipEnabled;
+                ClientUtils.displayMessge("No-Clip " + (noClipEnabled ? "Enabled" : "Disabled"));
 
-            //Send the packet to the server
-            PacketHandler.CHANNEL.sendToServer(new ToggleNoClipMessage(noClipEnabled));
-            //Set the value on the client as well
-            Player_I player_i = (Player_I) Minecraft.getInstance().player;
-            player_i.setNoClip(noClipEnabled);
+                //Send the packet to the server
+                PacketHandler.CHANNEL.sendToServer(new ToggleNoClipMessage(noClipEnabled));
+                //Set the value on the client as well
+                Player_I player_i = (Player_I) Minecraft.getInstance().player;
+                player_i.setNoClip(noClipEnabled);
+            }
         }
     }
 }
