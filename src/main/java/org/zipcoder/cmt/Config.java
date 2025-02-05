@@ -37,16 +37,23 @@ public class Config {
             COMMON_BUILDER.comment("Whether to disable flight inertia")
                     .define("client.DISABLE_FLIGHT_INERTIA", true);
 
+    //The vanilla flight speed is 0.05
+    private static final ForgeConfigSpec.DoubleValue FLIGHT_SPEED =
+            COMMON_BUILDER.comment("Flight speed (vanilla is 0.05)")
+                    .defineInRange("client.FLIGHT_SPEED", 0.07, 0.05, 1);
+
 
     static final ForgeConfigSpec SPEC = COMMON_BUILDER.build();
 
     //These are the values the mod will read from
     public static boolean disableFlightInertia = false;
+    public static float flightSpeed = 0.05f;
 
     //Called when the config is loaded
     @SubscribeEvent
     static void onLoad(final ModConfigEvent event) {
         //Its better to set the config values to other variables in here just so that we don't get null pointer exceptions
         disableFlightInertia = Config.DISABLE_FLIGHT_INERTIA.get();
+        flightSpeed = (float) ((double) Config.FLIGHT_SPEED.get());
     }
 }

@@ -43,6 +43,8 @@ public final class PlayerTicker {
                 && (player.isSpectator() || player.isCreative())
                 && Config.disableFlightInertia) {
 
+            player.getAbilities().setFlyingSpeed(Config.flightSpeed);
+
             final Input input = player.input;
             if (input.forwardImpulse == 0F && input.leftImpulse == 0F) {
                 player.setDeltaMovement(player.getDeltaMovement().multiply(INERTIA_DAMPING, 1.0, INERTIA_DAMPING));
