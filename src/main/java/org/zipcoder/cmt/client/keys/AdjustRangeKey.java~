@@ -9,7 +9,7 @@ import net.minecraftforge.client.gui.overlay.ForgeGui;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 import org.zipcoder.cmt.Config;
 import org.zipcoder.cmt.client.rendering.TextRenderer;
-import org.zipcoder.cmt.network.packets.PacketHandler;
+import org.zipcoder.cmt.reachModifier.network.LTPacketHandler;
 
 @OnlyIn(Dist.CLIENT)
 public class AdjustRangeKey extends KeyBase implements IGuiOverlay {
@@ -35,7 +35,7 @@ public class AdjustRangeKey extends KeyBase implements IGuiOverlay {
 		} else {
 			dist = Math.min(Config.MAX_RANGE.get(), mc.player.getEyePosition(partialTicks).distanceTo(rayTraceResult.getLocation()));
 		}
-		PacketHandler.sendReachRangeMessage(dist);
+		LTPacketHandler.sendReachRangeMessage(dist);
 		// Render
 		int distInt = (int)dist;
 		String distStr = String.valueOf(distInt);

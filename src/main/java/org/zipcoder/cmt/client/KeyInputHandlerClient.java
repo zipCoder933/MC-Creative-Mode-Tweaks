@@ -6,7 +6,7 @@ import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import org.zipcoder.cmt.client.utils.ClientUtils;
-import org.zipcoder.cmt.network.PacketHandler;
+import org.zipcoder.cmt.network.packets.PacketHandler;
 import org.zipcoder.cmt.network.ToggleNoClipPacket;
 import org.zipcoder.cmt.utils.mixin.Player_I;
 
