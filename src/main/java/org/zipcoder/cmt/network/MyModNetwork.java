@@ -4,7 +4,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
 
-import static org.zipcoder.cmt.CreativeModeTweaks.MOD_ID;
+import static org.zipcoder.cmt.CreativeModeTweaks.MODID;
 
 public class MyModNetwork {
     public static final String PROTOCOL_VERSION = "1";
@@ -13,7 +13,7 @@ public class MyModNetwork {
      * Our packet handler
      */
     public static final SimpleChannel CHANNEL = NetworkRegistry.newSimpleChannel(
-        new ResourceLocation(MOD_ID, "main"),
+        new ResourceLocation(MODID, "main"),
         () -> PROTOCOL_VERSION,
         PROTOCOL_VERSION::equals,
         PROTOCOL_VERSION::equals

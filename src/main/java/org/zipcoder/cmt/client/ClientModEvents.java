@@ -10,16 +10,16 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import org.lwjgl.glfw.GLFW;
 
-import static org.zipcoder.cmt.CreativeModeTweaks.MOD_ID;
+import static org.zipcoder.cmt.CreativeModeTweaks.MODID;
 
 // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent
-@Mod.EventBusSubscriber(modid = MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+@Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class ClientModEvents {
 
-    public static final String DEFAULT_CATEGORY = "key." + MOD_ID + ".default";
+    public static final String DEFAULT_CATEGORY = "key." + MODID + ".default";
 
     public static final KeyMapping KEY_TOGGLE_NOCLIP = new KeyMapping(
-            "key." + MOD_ID + ".toggle_noclip",
+            "key." + MODID + ".toggle_noclip",
             KeyConflictContext.IN_GAME,
             InputConstants.Type.KEYSYM,
             GLFW.GLFW_KEY_UNKNOWN,

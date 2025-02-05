@@ -13,19 +13,23 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.slf4j.Logger;
 import org.zipcoder.cmt.network.MyModNetwork;
+import org.zipcoder.cmt.reachModifier.LotTweaks;
 
 // The value here should match an entry in the META-INF/mods.toml file
-@Mod(CreativeModeTweaks.MOD_ID)
+@Mod(CreativeModeTweaks.MODID)
 public class CreativeModeTweaks {
 
     // Define mod id in a common place for everything to reference
-    public static final String MOD_ID = "cmt";
+    public static final String MODID = "cmt";
+    public static final String NAME = "CMT";
+
     // Directly reference a slf4j logger
     //The logger is a central point for logging
     private static final Logger LOGGER = LogUtils.getLogger();
 
     public CreativeModeTweaks() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+        new LotTweaks(modEventBus);
 
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);

@@ -27,7 +27,8 @@ public class Config {
             = COMMON_BUILDER.comment("Default reach distance when we enter creative mode")
             .defineInRange("defaultReach", 64, 5, 256);
 
-    //Used for lottweaks
+
+
     public static ForgeConfigSpec.IntValue MAX_RANGE = COMMON_BUILDER.defineInRange("common.MAX_RANGE", 128, 0, 256);
     public static ForgeConfigSpec.IntValue REPLACE_INTERVAL = COMMON_BUILDER.defineInRange("client.REPLACE_INTERVAL", 1, 1, 256);
     public static ForgeConfigSpec.BooleanValue INVERT_REPLACE_LOCK = COMMON_BUILDER.comment("Default: false").define("client.INVERT_REPLACE_LOCK", false);
