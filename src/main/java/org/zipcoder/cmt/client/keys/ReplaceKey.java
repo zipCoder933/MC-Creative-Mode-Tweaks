@@ -1,4 +1,4 @@
-package org.zipcoder.cmt.reachModifier.client.keys;
+package org.zipcoder.cmt.client.keys;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
@@ -19,12 +19,12 @@ import org.zipcoder.cmt.Config;
 import org.zipcoder.cmt.reachModifier.network.LTPacketHandler;
 
 @OnlyIn(Dist.CLIENT)
-public class ReplaceKey extends LTKeyBase {
+public class ReplaceKey extends KeyBase {
 
 	private BlockState lockedBlockState = null;
 
 	public ReplaceKey(int keyCode, String category) {
-		super("lottweaks-replace", keyCode, category);
+		super("ctm-replace", keyCode, category);
 	}
 
 	@Override

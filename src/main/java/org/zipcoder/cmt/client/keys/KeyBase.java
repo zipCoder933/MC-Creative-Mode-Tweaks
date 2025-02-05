@@ -1,4 +1,4 @@
-package org.zipcoder.cmt.reachModifier.client.keys;
+package org.zipcoder.cmt.client.keys;
 
 import net.minecraft.client.KeyMapping;
 import net.minecraftforge.api.distmarker.Dist;
@@ -9,13 +9,13 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 @OnlyIn(Dist.CLIENT)
-public class LTKeyBase extends KeyMapping {
+public class KeyBase extends KeyMapping {
 
 	protected int pressTime = 0;
 	protected int doubleTapTick = 0;
 	private static final int DOUBLE_TAP_MAX = 5;
 	
-	public LTKeyBase(String description, int keyCode, String category) {
+	public KeyBase(String description, int keyCode, String category) {
 		super(description, keyCode, category);
 	}
 

@@ -1,4 +1,4 @@
-package org.zipcoder.cmt.reachModifier.client.keys;
+package org.zipcoder.cmt.client.keys;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -8,14 +8,14 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.gui.overlay.ForgeGui;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 import org.zipcoder.cmt.Config;
-import org.zipcoder.cmt.reachModifier.client.renderer.TextRenderer;
+import org.zipcoder.cmt.client.rendering.TextRenderer;
 import org.zipcoder.cmt.reachModifier.network.LTPacketHandler;
 
 @OnlyIn(Dist.CLIENT)
-public class AdjustRangeKey extends LTKeyBase implements IGuiOverlay {
+public class AdjustRangeKey extends KeyBase implements IGuiOverlay {
 
 	public AdjustRangeKey(int keyCode, String category) {
-		super("lottweaks-adjustrange", keyCode, category);
+		super("ctm-adjustrange", keyCode, category);
 	}
 
 	@Override

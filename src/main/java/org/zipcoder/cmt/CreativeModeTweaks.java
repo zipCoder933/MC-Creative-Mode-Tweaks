@@ -12,7 +12,7 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.slf4j.Logger;
-import org.zipcoder.cmt.network.MyModNetwork;
+import org.zipcoder.cmt.network.PacketHandler;
 import org.zipcoder.cmt.reachModifier.LotTweaks;
 
 // The value here should match an entry in the META-INF/mods.toml file
@@ -50,7 +50,7 @@ public class CreativeModeTweaks {
      */
     private void commonSetup(final FMLCommonSetupEvent event) {
         // Register common setup
-        MyModNetwork.registerPackets();  // Register network packets here
+        PacketHandler.registerPackets();  // Register network packets here
     }
 
     // Add the example block item to the building blocks tab

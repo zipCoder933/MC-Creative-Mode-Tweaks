@@ -6,7 +6,7 @@ import net.minecraftforge.network.simple.SimpleChannel;
 
 import static org.zipcoder.cmt.CreativeModeTweaks.MODID;
 
-public class MyModNetwork {
+public class PacketHandler {
     public static final String PROTOCOL_VERSION = "1";
 
     /**

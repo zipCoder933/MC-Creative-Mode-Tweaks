@@ -1,4 +1,4 @@
-package org.zipcoder.cmt.reachModifier.client.renderer;
+package org.zipcoder.cmt.client.rendering;
 
 import com.mojang.blaze3d.platform.Window;
 import net.minecraft.client.Minecraft;
