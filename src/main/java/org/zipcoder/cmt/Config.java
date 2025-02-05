@@ -22,7 +22,7 @@ public class Config {
 
     public static final ForgeConfigSpec.IntValue REACH_DEFAULT_RANGE =
             COMMON_BUILDER.comment("Default reach distance when we enter creative mode")
-                    .defineInRange("common.REACH_DEFAULT_RANGE", 64, 5, 256);
+                    .defineInRange("common.REACH_DEFAULT_RANGE", 32, 5, 256);
 
     //Client
     public static ForgeConfigSpec.IntValue REPLACE_INTERVAL =
