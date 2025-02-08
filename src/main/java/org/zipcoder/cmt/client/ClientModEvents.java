@@ -3,6 +3,7 @@ package org.zipcoder.cmt.client;
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.KeyMapping;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.ClientPlayerNetworkEvent;
 import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
@@ -13,8 +14,10 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import org.lwjgl.glfw.GLFW;
+import org.zipcoder.cmt.Config;
 import org.zipcoder.cmt.client.keys.AdjustRangeKey;
 import org.zipcoder.cmt.client.keys.ReplaceKey;
+import org.zipcoder.cmt.client.utils.NoClipHandler;
 
 import static org.zipcoder.cmt.CreativeModeTweaks.MODID;
 
@@ -68,4 +71,5 @@ public class ClientModEvents {
         event.register(KEY_REPLACE);
         event.register(KEY_ADJUSTRANGE);
     }
+
 }

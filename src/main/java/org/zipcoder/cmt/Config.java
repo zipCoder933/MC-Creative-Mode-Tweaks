@@ -37,10 +37,13 @@ public class Config {
             COMMON_BUILDER.comment("Whether to disable flight inertia")
                     .define("client.DISABLE_FLIGHT_INERTIA", true);
 
-    //The vanilla flight speed is 0.05
     private static final ForgeConfigSpec.DoubleValue FLIGHT_SPEED =
             COMMON_BUILDER.comment("Flight speed (vanilla is 0.05)")
                     .defineInRange("client.FLIGHT_SPEED", 0.07, 0.05, 1);
+
+    public static final ForgeConfigSpec.BooleanValue NOCLIP_ON_LOGIN =
+            COMMON_BUILDER.comment("If No-Clip should be enabled or disabled by default when logging in")
+                    .define("client.NOCLIP_ON_LOGIN", true);
 
 
     static final ForgeConfigSpec SPEC = COMMON_BUILDER.build();
