@@ -1,7 +1,10 @@
 package org.zipcoder.cmt.client.fastPlace;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.level.GameType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -14,8 +17,6 @@ import static org.zipcoder.cmt.client.ClientModEvents.KEY_TOGGLE_INSTAPLACE;
 
 @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
 public class SmartBlockPlacementClient {
-//    public static final int PLACEMENT_INTERVAL = 1;
-//    public static int tickPlacement = 0;
 
     public static void setEnabledSmartPlacement(boolean enable) {
         Config.fastPlacementEnabled = enable;
@@ -26,18 +27,19 @@ public class SmartBlockPlacementClient {
     }
 
     @SubscribeEvent
-//    public void onClientTickEnd(TickEvent.ClientTickEvent event) {
     public static void onClientTick(TickEvent.ClientTickEvent event) {
-        if (event.phase == TickEvent.Phase.END) {
-            //If the tick placement is higher tha 0, count down (we can only set a block if tick placement is 0)
-//            if (tickPlacement > 0) tickPlacement--;
-            if (KEY_TOGGLE_INSTAPLACE.consumeClick()) {
-                setEnabledSmartPlacement(!getEnabledSmartPlacement());
+        if (event.phase == TickEvent.Phase.END && Minecraft.getInstance().player != null) {
+            LocalPlayer player = Minecraft.getInstance().player;
 
-                assert Minecraft.getInstance().player != null;
-                Minecraft.getInstance().player.displayClientMessage(
-                        Component.translatable("text.cmt.enabled_smart_placement",
-                                Component.translatable("text.cmt." + getEnabledSmartPlacement())), true);
+            if (Minecraft.getInstance().player.isCreative()) {
+                if (KEY_TOGGLE_INSTAPLACE.consumeClick()) {
+                    setEnabledSmartPlacement(!getEnabledSmartPlacement());
+                    player.displayClientMessage(
+                            Component.translatable("text.cmt.enabled_smart_placement",
+                                    Component.translatable("text.cmt." + getEnabledSmartPlacement())), true);
+                }
+            } else if (getEnabledSmartPlacement()) {
+                setEnabledSmartPlacement(false);
             }
         }
     }
