@@ -13,8 +13,7 @@ import org.zipcoder.cmt.client.fastPlace.SmartBlockPlacementClient;
 public class BlockItemMixin {
 
     @Inject(method = "useOn", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/BlockItem;place(Lnet/minecraft/world/item/context/BlockPlaceContext;)Lnet/minecraft/world/InteractionResult;"))
-    public void use(UseOnContext useOnContext, CallbackInfoReturnable<InteractionResult> cir){
-        //if (cir.getReturnValue().consumesAction())
+    public void use(UseOnContext useOnContext, CallbackInfoReturnable<InteractionResult> cir) {
         SmartBlockPlacementClient.tickPlacement = 0;
     }
 }
