@@ -9,7 +9,8 @@
   ],
   "client": [
     "HookClientPlayerTick",
-    "LoggingInMixin"
+    "LoggingInMixin",
+    "fastBlockPlacement.FastPlaceMixin"
   ],
   "injectors": {
     "defaultRequire": 1

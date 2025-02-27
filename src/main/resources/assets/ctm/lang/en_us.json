@@ -2,5 +2,9 @@
   "key.cmt.default": "Creative Mode",
   "key.cmt.toggle_noclip": "Toggle No-Clip",
   "key.cmt.adjustrange": "Adjust Range",
-  "key.cmt.replace": "Replace Tool"
+  "key.cmt.replace": "Replace Tool",
+  "key.categories.cmt": "Faster Block Placement",
+  "key.cmt.enableinstaplace": "Enable Instant Placement",
+  "message.cmt.enabledinstaplace": "§aInstant Placement has been enabled!",
+  "message.cmt.disabledinstaplace": "§cInstant Placement has been disabled!"
 }

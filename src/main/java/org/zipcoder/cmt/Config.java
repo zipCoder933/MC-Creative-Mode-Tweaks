@@ -45,12 +45,19 @@ public class Config {
             COMMON_BUILDER.comment("If No-Clip should be enabled or disabled by default when logging in")
                     .define("client.NOCLIP_ON_LOGIN", true);
 
+    public static final ForgeConfigSpec.BooleanValue DEFAULT_FAST_BLOCK_PLACEMENT =
+            COMMON_BUILDER.comment("If fast block placement should be enabled or disabled by default when logging in")
+                    .define("client.DEFAULT_FAST_BLOCK_PLACEMENT", true);
+
+
+
 
     static final ForgeConfigSpec SPEC = COMMON_BUILDER.build();
 
     //These are the values the mod will read from
     public static boolean disableFlightInertia = false;
     public static float flightSpeed = 0.05f;
+    public static boolean isInstantPlacing = true;
 
     //Called when the config is loaded
     @SubscribeEvent
@@ -58,5 +65,6 @@ public class Config {
         //Its better to set the config values to other variables in here just so that we don't get null pointer exceptions
         disableFlightInertia = Config.DISABLE_FLIGHT_INERTIA.get();
         flightSpeed = (float) ((double) Config.FLIGHT_SPEED.get());
+        isInstantPlacing = Config.DEFAULT_FAST_BLOCK_PLACEMENT.get();
     }
 }
