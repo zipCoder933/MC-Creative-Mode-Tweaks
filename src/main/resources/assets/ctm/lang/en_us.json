@@ -3,7 +3,7 @@
   "key.cmt.toggle_noclip": "Toggle No-Clip",
   "key.cmt.adjustrange": "Adjust Range",
   "key.cmt.replace": "Replace Tool",
-  "key.cmt.enableinstaplace": "Toggle Placement",
+  "key.cmt.enableinstaplace": "Toggle Fast Placement",
   "text.cmt.enabled_smart_placement": "Fast Placement: %1$s",
   "text.cmt.true": "Enabled",
   "text.cmt.false": "Disabled"
