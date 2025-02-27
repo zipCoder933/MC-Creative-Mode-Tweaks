@@ -47,9 +47,7 @@ public class Config {
 
     public static final ForgeConfigSpec.BooleanValue DEFAULT_FAST_BLOCK_PLACEMENT =
             COMMON_BUILDER.comment("If fast block placement should be enabled or disabled by default when logging in")
-                    .define("client.DEFAULT_FAST_BLOCK_PLACEMENT", true);
-
-
+                    .define("client.DEFAULT_FAST_BLOCK_PLACEMENT", false);
 
 
     static final ForgeConfigSpec SPEC = COMMON_BUILDER.build();

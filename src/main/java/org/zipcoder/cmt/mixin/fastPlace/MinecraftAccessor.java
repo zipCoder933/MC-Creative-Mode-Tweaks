@@ -12,4 +12,7 @@ public interface MinecraftAccessor {
      */
     @Invoker
     void callStartUseItem();
+
+    @Invoker
+    boolean callStartAttack();
 }

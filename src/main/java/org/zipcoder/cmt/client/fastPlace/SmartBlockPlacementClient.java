@@ -7,15 +7,15 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import org.zipcoder.cmt.Config;
+import org.zipcoder.cmt.client.rendering.TextRenderer;
 
 import static org.zipcoder.cmt.CreativeModeTweaks.MODID;
 import static org.zipcoder.cmt.client.ClientModEvents.KEY_TOGGLE_INSTAPLACE;
 
 @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
 public class SmartBlockPlacementClient {
-
-    public static long pluginTick = 0;
-    public static int tickPlacement = 0;
+//    public static final int PLACEMENT_INTERVAL = 1;
+//    public static int tickPlacement = 0;
 
     public static void setEnabledSmartPlacement(boolean enable) {
         Config.fastPlacementEnabled = enable;
@@ -29,18 +29,18 @@ public class SmartBlockPlacementClient {
 //    public void onClientTickEnd(TickEvent.ClientTickEvent event) {
     public static void onClientTick(TickEvent.ClientTickEvent event) {
         if (event.phase == TickEvent.Phase.END) {
-            pluginTick++;
-            if (tickPlacement > 0) tickPlacement--;
+            //If the tick placement is higher tha 0, count down (we can only set a block if tick placement is 0)
+//            if (tickPlacement > 0) tickPlacement--;
             if (KEY_TOGGLE_INSTAPLACE.consumeClick()) {
                 setEnabledSmartPlacement(!getEnabledSmartPlacement());
 
+                assert Minecraft.getInstance().player != null;
                 Minecraft.getInstance().player.displayClientMessage(
                         Component.translatable("text.cmt.enabled_smart_placement",
-                                Component.translatable("text.cmt." + getEnabledSmartPlacement())), false);
+                                Component.translatable("text.cmt." + getEnabledSmartPlacement())), true);
             }
         }
     }
-
 
 
 //    private static int ticker = 20;

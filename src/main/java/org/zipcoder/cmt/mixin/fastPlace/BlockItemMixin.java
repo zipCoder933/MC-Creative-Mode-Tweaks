@@ -12,8 +12,14 @@ import org.zipcoder.cmt.client.fastPlace.SmartBlockPlacementClient;
 @Mixin(BlockItem.class)
 public class BlockItemMixin {
 
+    /**
+     * Called whenever a block is placed
+     * @param useOnContext
+     * @param cir
+     */
     @Inject(method = "useOn", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/BlockItem;place(Lnet/minecraft/world/item/context/BlockPlaceContext;)Lnet/minecraft/world/InteractionResult;"))
     public void use(UseOnContext useOnContext, CallbackInfoReturnable<InteractionResult> cir) {
-        SmartBlockPlacementClient.tickPlacement = 0;
+        //whenever we place a block in any way, we reset the tick to allow the smart block placement to fire immediately after
+        //SmartBlockPlacementClient.tickPlacement = 0;
     }
 }
