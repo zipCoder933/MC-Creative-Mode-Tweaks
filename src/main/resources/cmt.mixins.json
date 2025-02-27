@@ -10,7 +10,10 @@
   "client": [
     "HookClientPlayerTick",
     "LoggingInMixin",
-    "fastBlockPlacement.FastPlaceMixin"
+    "fastPlace.GameRendererMixin",
+    "fastPlace.MinecraftAccessor",
+    "fastPlace.MinecraftMixin",
+    "fastPlace.BlockItemMixin"
   ],
   "injectors": {
     "defaultRequire": 1

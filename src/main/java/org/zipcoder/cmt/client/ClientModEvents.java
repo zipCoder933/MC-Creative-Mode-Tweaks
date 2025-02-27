@@ -3,7 +3,6 @@ package org.zipcoder.cmt.client;
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.KeyMapping;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.ClientPlayerNetworkEvent;
 import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
@@ -14,10 +13,8 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import org.lwjgl.glfw.GLFW;
-import org.zipcoder.cmt.Config;
 import org.zipcoder.cmt.client.keys.AdjustRangeKey;
 import org.zipcoder.cmt.client.keys.ReplaceKey;
-import org.zipcoder.cmt.client.utils.NoClipHandler;
 
 import static org.zipcoder.cmt.CreativeModeTweaks.MODID;
 
@@ -35,21 +32,34 @@ public class ClientModEvents {
             DEFAULT_CATEGORY
     );
 
+    public static final KeyMapping KEY_TOGGLE_INSTAPLACE = new KeyMapping(
+            "key." + MODID + ".enableinstaplace",
+            KeyConflictContext.IN_GAME,
+            InputConstants.Type.KEYSYM,
+            GLFW.GLFW_KEY_G,
+            DEFAULT_CATEGORY
+    );
+
     public static final KeyMapping KEY_REPLACE = new ReplaceKey("key." + MODID + ".replace",
             GLFW.GLFW_KEY_UNKNOWN, DEFAULT_CATEGORY);
 
     public static final KeyMapping KEY_ADJUSTRANGE = new AdjustRangeKey("key." + MODID + ".adjustrange",
             GLFW.GLFW_KEY_UNKNOWN, DEFAULT_CATEGORY);
 
-    /**
-     * Setup the client side.
-     *
-     * @param event
-     */
     @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event) {
+        //Some keys have other events that need to be registered
         MinecraftForge.EVENT_BUS.register(KEY_REPLACE);
         MinecraftForge.EVENT_BUS.register(KEY_ADJUSTRANGE);
+    }
+
+    @SubscribeEvent
+    public static void registerKeyMappings(RegisterKeyMappingsEvent event) {
+        //All keybindings get registered here
+        event.register(KEY_TOGGLE_NOCLIP);
+        event.register(KEY_ADJUSTRANGE);
+        event.register(KEY_REPLACE);
+        event.register(KEY_TOGGLE_INSTAPLACE);
     }
 
 
@@ -65,11 +75,5 @@ public class ClientModEvents {
             event.registerAbove(VanillaGuiOverlay.HOTBAR.id(), KEY_TOGGLE_NOCLIP.getName(), (IGuiOverlay) KEY_TOGGLE_NOCLIP);
     }
 
-    @SubscribeEvent
-    public static void registerKeyMappings(RegisterKeyMappingsEvent event) {
-        event.register(KEY_TOGGLE_NOCLIP);
-        event.register(KEY_REPLACE);
-        event.register(KEY_ADJUSTRANGE);
-    }
 
 }

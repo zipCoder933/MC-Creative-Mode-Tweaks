@@ -8,8 +8,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.zipcoder.cmt.client.utils.betterControls.Mixins;
-import org.zipcoder.cmt.client.utils.betterControls.PlayerTicker;
+import org.zipcoder.cmt.client.betterControls.Mixins;
+import org.zipcoder.cmt.client.betterControls.PlayerTicker;
 
 import static org.spongepowered.asm.mixin.injection.At.Shift.AFTER;
 
