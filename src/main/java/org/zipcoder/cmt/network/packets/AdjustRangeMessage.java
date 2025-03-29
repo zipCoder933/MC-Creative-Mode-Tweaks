@@ -2,7 +2,6 @@ package org.zipcoder.cmt.network.packets;
 
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraftforge.network.NetworkEvent;
 import org.zipcoder.cmt.Config;
 import org.zipcoder.cmt.utils.MathUtils;
 import org.zipcoder.cmt.utils.reach.AdjustRangeHelper;

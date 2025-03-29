@@ -1,46 +1,41 @@
 package org.zipcoder.cmt.network.packets;
 
-import net.minecraft.network.FriendlyByteBuf;
+import io.netty.buffer.ByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraftforge.network.NetworkEvent;
+import net.minecraft.world.entity.player.Player;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 import org.zipcoder.cmt.utils.mixin.Player_I;
 
-import java.util.function.Supplier;
+import static org.zipcoder.cmt.CreativeModeTweaks.MODID;
 
-public class ToggleNoClipMessage {
+public record ToggleNoClipMessage(boolean enabled) implements CustomPacketPayload {
 
-    boolean enabled;
+    public static final CustomPacketPayload.Type<ToggleNoClipMessage> TYPE = new CustomPacketPayload.Type<>(
+            ResourceLocation.fromNamespaceAndPath(MODID, "toggle_no_clip"));
 
-    public ToggleNoClipMessage(boolean enabled) {
-        this.enabled = enabled;
+    @Override
+    public CustomPacketPayload.Type<? extends CustomPacketPayload> type() {
+        return TYPE;
     }
 
-    /**
-     * Serializes the packet
-     *
-     * @param packet
-     * @param buf
-     */
-    public static void encode(ToggleNoClipMessage packet, FriendlyByteBuf buf) {
-        buf.writeBoolean(packet.enabled);
-    }
+    // Each pair of elements defines the stream codec of the element to encode/decode and the getter for the element to encode
+    // 'name' will be encoded and decoded as a string
+    // 'age' will be encoded and decoded as an integer
+    // The final parameter takes in the previous parameters in the order they are provided to construct the payload object
+    public static final StreamCodec<ByteBuf, ToggleNoClipMessage> STREAM_CODEC = StreamCodec.composite(
+            ByteBufCodecs.BOOL,
+            ToggleNoClipMessage::enabled,
+            ToggleNoClipMessage::new
+    );
 
-    /**
-     * Deserializes the packet
-     *
-     * @param buf
-     * @return
-     */
-    public static ToggleNoClipMessage decode(FriendlyByteBuf buf) {
-        boolean enabled = buf.readBoolean();
-        return new ToggleNoClipMessage(enabled);
-    }
 
-    public static void handle(ToggleNoClipMessage packet, Supplier<NetworkEvent.Context> ctxSupplier) {
-        NetworkEvent.Context ctx = ctxSupplier.get();
+    public static void handleDataOnMain(final ToggleNoClipMessage packet, final IPayloadContext ctx) {
+        Player player = ctx.player();
         ctx.enqueueWork(() -> {
-            // This code runs on the server thread.
-            ServerPlayer player = ctx.getSender();
             if (player != null) {
                 Player_I player_i = (Player_I) player;
                 player_i.setNoClip(packet.enabled);
@@ -48,10 +43,8 @@ public class ToggleNoClipMessage {
                 System.out.println("SERVER:" +
                         " NoClip: " + player_i.isNoClip()
                         + " player: " + player.getName().getString());
-//                player.getAbilities().setFlyingSpeed();
             }
         });
-        // Mark the packet as handled
-        ctx.setPacketHandled(true);
     }
+
 }

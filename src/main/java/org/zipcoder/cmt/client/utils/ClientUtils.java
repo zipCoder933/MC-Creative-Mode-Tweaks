@@ -3,8 +3,9 @@ package org.zipcoder.cmt.client.utils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.toasts.SystemToast;
 import net.minecraft.network.chat.Component;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+
 
 @OnlyIn(Dist.CLIENT)
 public class ClientUtils {
@@ -13,7 +14,7 @@ public class ClientUtils {
     public static void showToast(String title, String message) {
         if (mc.player != null) {
             SystemToast toast = new SystemToast(
-                    SystemToast.SystemToastIds.TUTORIAL_HINT, // Toast Type
+                    SystemToast.SystemToastId.PERIODIC_NOTIFICATION, // Toast Type
                     Component.literal(title),
                     Component.literal(message)
             );

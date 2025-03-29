@@ -24,6 +24,6 @@ C:\\Users\\sampw\\.gradle\\caches\\neoformruntime\\assets
 cmt
 --all
 --output
-"C:\\Local Files\\Java\\Minecraft Mods\\CreativeModeTweaks\\src\\generated\\resources"
+"C:\\Local Files\\Java\\Minecraft Mods\\MC-Creative-Mode-Tweaks\\src\\generated\\resources"
 --existing
-"C:\\Local Files\\Java\\Minecraft Mods\\CreativeModeTweaks\\src\\main\\resources"
+"C:\\Local Files\\Java\\Minecraft Mods\\MC-Creative-Mode-Tweaks\\src\\main\\resources"

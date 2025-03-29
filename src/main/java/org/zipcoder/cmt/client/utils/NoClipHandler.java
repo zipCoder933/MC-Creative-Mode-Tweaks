@@ -1,8 +1,8 @@
 package org.zipcoder.cmt.client.utils;
 
 import net.minecraft.client.Minecraft;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 import org.zipcoder.cmt.network.PacketHandler;
 import org.zipcoder.cmt.network.packets.ToggleNoClipMessage;
 import org.zipcoder.cmt.utils.mixin.Player_I;

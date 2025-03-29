@@ -1,22 +1,19 @@
 package org.zipcoder.cmt;
 
 import com.mojang.logging.LogUtils;
-import net.minecraftforge.client.event.ClientPlayerNetworkEvent;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
-import net.minecraftforge.event.server.ServerStartingEvent;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.event.IModBusEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.ModLoadingContext;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.ModContainer;
+import net.neoforged.fml.ModLoadingContext;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.config.ModConfig;
+import net.neoforged.fml.event.config.ModConfigEvent;
+import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.neoforge.common.NeoForge;
 import org.slf4j.Logger;
 import org.zipcoder.cmt.network.PacketHandler;
 import org.zipcoder.cmt.utils.reach.AdjustRangeHelper;
 
+//https://github.com/Tutorials-By-Kaupenjoe/NeoForge-Tutorial-1.21.X/tree/main/src/main/java/net/kaupenjoe/tutorialmod
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(CreativeModeTweaks.MODID)
 public class CreativeModeTweaks {
@@ -28,20 +25,15 @@ public class CreativeModeTweaks {
     //The logger is a central point for logging
     private static final Logger LOGGER = LogUtils.getLogger();
 
-    public CreativeModeTweaks() {
-        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-
+    public CreativeModeTweaks(IEventBus modEventBus, ModContainer modContainer) {
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
 
         // Register ourselves for server and other game events we are interested in
-        MinecraftForge.EVENT_BUS.register(this);
-
-        // Register the item to a creative tab
-        modEventBus.addListener(this::addCreative);
+        modEventBus.register(this);
 
         // Register our mod's ForgeConfigSpec so that Forge can create and load the config file for us
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC);
+        modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
 
     /**
@@ -51,19 +43,7 @@ public class CreativeModeTweaks {
      */
     private void commonSetup(final FMLCommonSetupEvent event) {
         PacketHandler.registerPackets();  // Register network packets
-        MinecraftForge.EVENT_BUS.register(new AdjustRangeHelper());
+        NeoForge.EVENT_BUS.register(new AdjustRangeHelper());
     }
-
-    // Add the example block item to the building blocks tab
-    private void addCreative(BuildCreativeModeTabContentsEvent event) {
-
-    }
-
-    // You can use SubscribeEvent and let the Event Bus discover methods to call
-    @SubscribeEvent
-    public void onServerStarting(ServerStartingEvent event) {
-
-    }
-
 
 }

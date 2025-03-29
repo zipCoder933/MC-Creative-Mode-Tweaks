@@ -10,9 +10,9 @@ java.base/java.lang.invoke=cpw.mods.securejarhandler
 java.base/sun.security.util=cpw.mods.securejarhandler
 --add-exports
 jdk.naming.dns/com.sun.jndi.dns=java.naming
-"-Dlog4j2.configurationFile=C:\\Local Files\\Java\\Minecraft Mods\\CreativeModeTweaks\\build\\moddev\\clientLog4j2.xml"
+"-Dlog4j2.configurationFile=C:\\Local Files\\Java\\Minecraft Mods\\MC-Creative-Mode-Tweaks\\build\\moddev\\clientLog4j2.xml"
 -Dneoforge.enableGameTest=true
-"-DlegacyClassPath.file=C:\\Local Files\\Java\\Minecraft Mods\\CreativeModeTweaks\\build\\moddev\\clientLegacyClasspath.txt"
+"-DlegacyClassPath.file=C:\\Local Files\\Java\\Minecraft Mods\\MC-Creative-Mode-Tweaks\\build\\moddev\\clientLegacyClasspath.txt"
 -DignoreList=securejarhandler-3.0.8.jar,asm-9.7.jar,asm-commons-9.7.jar,asm-tree-9.7.jar,asm-util-9.7.jar,asm-analysis-9.7.jar,bootstraplauncher-2.0.2.jar,JarJarFileSystems-0.4.1.jar,mixinextras-neoforge-0.4.1.jar,client-extra,neoforge-
 -Dfml.gameLayerLibraries=
 -DmergeModules=jna-5.10.0.jar,jna-platform-5.10.0.jar

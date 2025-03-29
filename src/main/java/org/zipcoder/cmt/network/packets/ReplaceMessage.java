@@ -1,58 +1,69 @@
 package org.zipcoder.cmt.network.packets;
 
+import io.netty.buffer.ByteBuf;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.network.NetworkEvent;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 import org.zipcoder.cmt.Config;
 
-import java.util.function.Supplier;
+import static org.zipcoder.cmt.CreativeModeTweaks.MODID;
 
-public class ReplaceMessage {
+public record ReplaceMessage(BlockPos pos, BlockState state, BlockState checkState) implements CustomPacketPayload {
 
-    private final BlockPos pos;
-    private final BlockState state;
-    private final BlockState checkState;
 
-    public ReplaceMessage(BlockPos pos, BlockState state, BlockState checkState) {
-        this.pos = pos;
-        this.state = state;
-        this.checkState = checkState;
+    public static final CustomPacketPayload.Type<ToggleNoClipMessage> TYPE = new CustomPacketPayload.Type<>(
+            ResourceLocation.fromNamespaceAndPath(MODID, "toggle_no_clip"));
+
+    @Override
+    public CustomPacketPayload.Type<? extends CustomPacketPayload> type() {
+        return TYPE;
     }
 
-    public ReplaceMessage(FriendlyByteBuf buf) {
-        this(buf.readBlockPos(), Block.stateById(buf.readInt()), Block.stateById(buf.readInt()));
-    }
+    // Each pair of elements defines the stream codec of the element to encode/decode and the getter for the element to encode
+    // The final parameter takes in the previous parameters in the order they are provided to construct the payload object
+    public static final StreamCodec<ByteBuf, ReplaceMessage> STREAM_CODEC = StreamCodec.composite(
+            ByteBufCodecs.VAR_LONG,
+            ReplaceMessage::writeBlockPos,
+    ReplaceMessage::new
+    );
 
-    public void toBytes(FriendlyByteBuf buf) {
-        buf.writeBlockPos(this.pos);
-        buf.writeInt(Block.getId(state));
-        buf.writeInt(Block.getId(checkState));
+    public static void writeBlockPos(ByteBuf buffer, BlockPos pos) {
+        buffer.writeLong(pos.asLong());
     }
+//
+//    public void toBytes(FriendlyByteBuf buf) {
+//        buf.writeBlockPos(this.pos);
+//        buf.writeInt(Block.getId(state));
+//        buf.writeInt(Block.getId(checkState));
+//    }
 
-    public void handle(Supplier<NetworkEvent.Context> ctx) {
-        ctx.get().setPacketHandled(true);
-        final ServerPlayer player = ctx.get().getSender();
+    public static void handleDataOnMain(final ReplaceMessage packet, final IPayloadContext ctx) {
+        Player player = ctx.player();
         if (!player.isCreative() || player.level().isClientSide) return;
         // validation
-        if (state.getBlock() == Blocks.AIR) {
+        if (packet.state.getBlock() == Blocks.AIR) {
             return;
         }
-        double dist = player.getEyePosition(1.0F).distanceTo(new Vec3(pos.getX(), pos.getY(), pos.getZ()));
+        double dist = player.getEyePosition(1.0F).distanceTo(new Vec3(packet.pos.getX(), packet.pos.getY(), packet.pos.getZ()));
         if (dist > Config.REACH_MAX_RANGE.get()) {
             return;
         }
-        if (player.level().getBlockState(pos) != checkState) {
+        if (player.level().getBlockState(packet.pos) != packet.checkState) {
             return;
         }
         //
-        ctx.get().enqueueWork(() -> {
-            player.level().setBlock(pos, state, 2);
+        ctx.enqueueWork(() -> {
+            player.level().setBlock(packet.pos, packet.state, 2);
         });
-        return;
     }
 }
